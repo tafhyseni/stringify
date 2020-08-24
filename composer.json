@@ -1,0 +1,26 @@
+{
+    "name": "tafhyseni/stringify",
+    "description": "A magical string helper buddy",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Taf Hyseni",
+            "email": "tafhyseni@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Tafhyseni\\Stringify\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tafhyseni\\Stringify\\Tests\\": "tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.3"
+    }
+}
