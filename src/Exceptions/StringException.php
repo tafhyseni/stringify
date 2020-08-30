@@ -10,4 +10,19 @@ class StringException extends \Exception
     {
         return new static('Missing string value', 400);
     }
+
+    public static function noCharacter(): self
+    {
+        return new static('Missing character value', 400);
+    }
+
+    public static function noClause(): self
+    {
+        return new static('No character was provided. We were unsure when to cut your string!', 400);
+    }
+
+    public static function removedChars(): self
+    {
+        return new static('Total chars to be removed are missing!', 400);
+    }
 }
