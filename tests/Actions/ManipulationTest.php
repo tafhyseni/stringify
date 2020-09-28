@@ -5,6 +5,7 @@ namespace Tafhyseni\Stringify\Tests\Actions;
 use Tafhyseni\Stringify\Actions\Manipulation;
 use PHPUnit\Framework\TestCase;
 use Tafhyseni\Stringify\Exceptions\StringException;
+use Tafhyseni\Stringify\Stringify;
 
 class ManipulationTest extends TestCase
 {
@@ -39,5 +40,20 @@ class ManipulationTest extends TestCase
         $string = (new Manipulation('helloworld'))->remove_character_from_string('d');
 
         return $this->assertEquals('helloworl', $string);
+    }
+
+    /** @test */
+    public function chunks_string_into_pieces()
+    {
+        $string = Stringify::parse('helloworld')->chunk(4);
+
+        return $this->assertEquals('hell owor ld ', $string);
+    }
+
+    /** @test  */
+    public function chunk_string_into_words()
+    {
+        $string = Stringify::parse('hello world')->chunk(4);
+
     }
 }

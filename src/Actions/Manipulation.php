@@ -30,7 +30,7 @@ class Manipulation
         $this->string = $usersString;
     }
 
-    public function remove_character_from_string(string $character): string
+    public function remove_character_from_string(string $character = ''): string
     {
         if(!$character)
             throw StringException::noCharacter();
@@ -77,5 +77,35 @@ class Manipulation
     public function remove_html_tags_from_string($except = ''): string
     {
         return $this->response = strip_tags($this->string, $except);
+    }
+
+    public function count_length_of_string(): int
+    {
+        return $this->response = strlen($this->string);
+    }
+
+    public function to_uppercace(): string
+    {
+        return $this->response = strtoupper($this->string);
+    }
+
+    public function to_lowercase(): string
+    {
+        return $this->response = strtolower($this->string);
+    }
+
+    public function start_with_uppercase(): string
+    {
+        return $this->response = ucfirst($this->string);
+    }
+
+    public function start_with_lowercase(): string
+    {
+        return $this->response = lcfirst($this->string);
+    }
+
+    public function reverse_string(): string
+    {
+        return $this->response = strrev($this->string);
     }
 }
