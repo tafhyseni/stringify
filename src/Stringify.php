@@ -2,6 +2,7 @@
 
 namespace Tafhyseni\Stringify;
 
+use Tafhyseni\Stringify\Actions\Check;
 use Tafhyseni\Stringify\Actions\Expression;
 use Tafhyseni\Stringify\Actions\Manipulation;
 use Tafhyseni\Stringify\Exceptions\StringException;
@@ -222,6 +223,31 @@ class Stringify
     }
 
     /**
+     * @param int $times
+     * @return string
+     * @throws StringException
+     */
+    public function repeat(int $times = 1): string
+    {
+        return (new Manipulation($this->string))->repeat_string($times);
+    }
+
+    /**
+     * @param string $string
+     * @return bool
+     * @throws StringException
+     */
+    public function compareTo(string $string): bool
+    {
+        return (new Manipulation($this->string))->compare_with_string($string);
+    }
+
+    public function between(string $start = '', string $end = ''): string
+    {
+        return (new Manipulation($this->string))->get_string_between($start, $end);
+    }
+
+    /**
      * @EXPRESSIONS
      */
 
@@ -234,7 +260,37 @@ class Stringify
         return (new Expression($this->string))->remove_numbers_from_string();
     }
 
+    /**
+     * Check Ups
+     */
+    public function isNumeric(): bool
+    {
+        return (new Check($this->string))->string_is_numeric();
+    }
 
+    /**
+     * @return bool
+     */
+    public function isAlphaNumeric(): bool
+    {
+        return (new Check($this->string))->string_is_alpha_numeric();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAlpha(): bool
+    {
+        return (new Check($this->string))->string_is_alpha();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isJSON(): bool
+    {
+        return (new Check($this->string))->string_is_json();
+    }
 
     //TODO: Remove all specials from a string
     // https://stackoverflow.com/questions/14114411/remove-all-special-characters-from-a-string

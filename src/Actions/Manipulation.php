@@ -108,4 +108,34 @@ class Manipulation
     {
         return $this->response = strrev($this->string);
     }
+
+    public function repeat_string(int $times = 1): string
+    {
+        return $this->response = str_repeat($this->string, $times);
+    }
+
+    public function compare_with_string(string $string): bool
+    {
+        return $this->response = !strcmp($this->string, $string);
+    }
+
+    public function get_string_between(string $start = '', string $end = '')
+    {
+        if(!$start || !$end)
+            throw StringException::startAndEnd();
+
+        var_dump(strpos($this->string, $start));
+
+        if(strpos($this->string, $start) === false)
+            return $this->response = $this->string;
+
+        $startChars = strpos($this->string, $start) + strlen($start);
+        $firstPart = substr($this->string, $startChars, strlen($this->string));
+        $endChars = strpos($firstPart, $end);
+        if ($endChars == 0) {
+            $endChars = strlen($firstPart);
+        }
+
+        return substr($firstPart, 0, $endChars);
+    }
 }

@@ -25,4 +25,9 @@ class StringException extends \Exception
     {
         return new static('Total chars to be removed are missing!', 400);
     }
+
+    public static function startAndEnd(): self
+    {
+        return new static('Start and End are required for fetching between string', 400);
+    }
 }
