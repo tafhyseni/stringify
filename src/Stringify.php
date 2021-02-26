@@ -27,17 +27,34 @@ class Stringify
      * @param string $string
      * @return static
      */
-    public static function parse(string $string)
+    public static function parse(string $string = '')
     {
-        return new static($string);
+        if(!$string)
+            throw StringException::noString();
+
+        return new self($string);
+    }
+
+    /**
+     * @return string
+     */
+    public function get(): string
+    {
+        return $this->string;
+    }
+
+    public function getArray(): array
+    {
+        return $this->string;
     }
 
     /**
      * Removes character from string
      */
-    public function removeCharacter(string $character): string
+    public function removeCharacter(string $character): self
     {
-        return (new Actions\Manipulation($this->string))->remove_character_from_string($character);
+        $this->string = (new Actions\Manipulation($this->string))->remove_character_from_string($character);
+        return $this;
     }
 
     /**
@@ -46,9 +63,10 @@ class Stringify
      * @param string $endWith
      * @throws Exceptions\StringException
      */
-    public function chunk(int $length = 1): string
+    public function chunk(int $length = 1): self
     {
-        return (new Actions\Manipulation($this->string))->chunk_string($length, ' ');
+        $this->string = (new Actions\Manipulation($this->string))->chunk_string($length, ' ');
+        return $this;
     }
 
     /**
@@ -57,9 +75,10 @@ class Stringify
      * @param string $endWith
      * @throws Exceptions\StringException
      */
-    public function chunkBy(string $splitBy, int $length = 1): string
+    public function chunkBy(string $splitBy, int $length = 1): self
     {
-        return (new Actions\Manipulation($this->string))->chunk_string($length, $splitBy);
+        $this->string = (new Actions\Manipulation($this->string))->chunk_string($length, $splitBy);
+        return $this;
     }
 
     /**
@@ -67,9 +86,10 @@ class Stringify
      * @return array
      * @throws StringException
      */
-    public function toArray(int $length = 1)
+    public function toArray(int $length = 1): self
     {
-        return (new Actions\Manipulation($this->string))->string_to_array($length);
+        $this->string = (new Actions\Manipulation($this->string))->string_to_array($length);
+        return $this;
     }
 
     /**
@@ -77,54 +97,60 @@ class Stringify
      * @return array
      * @throws StringException
      */
-    public function toArrayBy(string $delimiter = " "): array
+    public function toArrayBy(string $delimiter = " "): self
     {
-        return (new Actions\Manipulation($this->string))->string_to_array_by($delimiter);
+        $this->string = (new Actions\Manipulation($this->string))->string_to_array_by($delimiter);
+        return $this;
     }
 
     /**
      * @return int
      * @throws StringException
      */
-    public function countWords(): int
+    public function countWords(): self
     {
-        return (new Actions\Manipulation($this->string))->count_words();
+        $this->string = (new Actions\Manipulation($this->string))->count_words();
+        return $this;
     }
 
     /**
      * @return string
      * @throws StringException
      */
-    public function toUpperCase()
+    public function toUpperCase(): self
     {
-        return (new Actions\Manipulation($this->string))->to_uppercace();
+        $this->string = (new Actions\Manipulation($this->string))->to_uppercace();
+        return $this;
     }
 
     /**
      * @return string
      * @throws StringException
      */
-    public function toLowerCase()
+    public function toLowerCase(): self
     {
-        return (new Actions\Manipulation($this->string))->to_lowercase();
+        $this->string = (new Actions\Manipulation($this->string))->to_lowercase();
+        return $this;
     }
 
     /**
      * @return string
      * @throws StringException
      */
-    public function startWithUpperCase()
+    public function startWithUpperCase(): self
     {
-        return (new Actions\Manipulation($this->string))->start_with_uppercase();
+        $this->string = (new Actions\Manipulation($this->string))->start_with_uppercase();
+        return $this;
     }
 
     /**
      * @return string
      * @throws StringException
      */
-    public function startWithLowerCase()
+    public function startWithLowerCase(): self
     {
-        return (new Actions\Manipulation($this->string))->start_with_lowercase();
+        $this->string = (new Actions\Manipulation($this->string))->start_with_lowercase();
+        return $this;
     }
 
     /**
@@ -133,43 +159,23 @@ class Stringify
      * @return false|string
      * @throws StringException
      */
-    public function removeAfter(string $clause = "")
+    public function removeAfter(string $clause = ""): self
     {
         if(!$clause)
             throw StringException::noClause();
 
-        return (new Manipulation($this->string))->remove_portion_of_string_after_char($clause);
+        $this->string = (new Manipulation($this->string))->remove_portion_of_string_after_char($clause);
+        return $this;
     }
 
     /**
      * @return string
      * @throws StringException
      */
-    public function removeFirstChar(): string
+    public function removeFirstChar(): self
     {
-        return (new Manipulation($this->string))->remove_first_character(1);
-    }
-
-    /**
-     * @param int $chars
-     * @return string
-     * @throws StringException
-     */
-    public function removeFirstChars(int $chars = 0): string
-    {
-        if(!$chars)
-            throw StringException::removedChars();
-
-        return (new Manipulation($this->string))->remove_first_character($chars);
-    }
-
-    /**
-     * @return string
-     * @throws StringException
-     */
-    public function removeLastChar(): string
-    {
-        return (new Manipulation($this->string))->remove_last_characters();
+        $this->string = (new Manipulation($this->string))->remove_first_character(1);
+        return $this;
     }
 
     /**
@@ -177,21 +183,47 @@ class Stringify
      * @return string
      * @throws StringException
      */
-    public function removeLastChars(int $chars = 0): string
+    public function removeFirstChars(int $chars = 0): self
     {
         if(!$chars)
             throw StringException::removedChars();
 
-        return (new Manipulation($this->string))->remove_last_characters($chars);
+        $this->string = (new Manipulation($this->string))->remove_first_character($chars);
+        return $this;
     }
 
     /**
      * @return string
      * @throws StringException
      */
-    public function removeHTML(): string
+    public function removeLastChar(): self
     {
-        return (new Manipulation($this->string))->remove_html_tags_from_string();
+        $this->string = (new Manipulation($this->string))->remove_last_characters();
+        return $this;
+    }
+
+    /**
+     * @param int $chars
+     * @return string
+     * @throws StringException
+     */
+    public function removeLastChars(int $chars = 0): self
+    {
+        if(!$chars)
+            throw StringException::removedChars();
+
+        $this->string = (new Manipulation($this->string))->remove_last_characters($chars);
+        return $this;
+    }
+
+    /**
+     * @return string
+     * @throws StringException
+     */
+    public function removeHTML(): self
+    {
+        $this->string = (new Manipulation($this->string))->remove_html_tags_from_string();
+        return $this;
     }
 
     /**
@@ -199,27 +231,30 @@ class Stringify
      * @return string
      * @throws StringException
      */
-    public function removeHtmlExpect($allowedTags = '')
+    public function removeHtmlExpect($allowedTags = ''): self
     {
-        return (new Manipulation($this->string))->remove_html_tags_from_string($allowedTags);
+        $this->string = (new Manipulation($this->string))->remove_html_tags_from_string($allowedTags);
+        return $this;
     }
 
     /**
      * @return int
      * @throws StringException
      */
-    public function count()
+    public function count(): self
     {
-        return (new Manipulation($this->string))->count_length_of_string();
+        $this->string = (new Manipulation($this->string))->count_length_of_string();
+        return $this;
     }
 
     /**
      * @return string
      * @throws StringException
      */
-    public function reverse()
+    public function reverse(): self
     {
-        return (new Actions\Manipulation($this->string))->reverse_string();
+        $this->string = (new Actions\Manipulation($this->string))->reverse_string();
+        return $this;
     }
 
     /**
@@ -227,9 +262,10 @@ class Stringify
      * @return string
      * @throws StringException
      */
-    public function repeat(int $times = 1): string
+    public function repeat(int $times = 1): self
     {
-        return (new Manipulation($this->string))->repeat_string($times);
+        $this->string = (new Manipulation($this->string))->repeat_string($times);
+        return $this;
     }
 
     /**
@@ -237,14 +273,16 @@ class Stringify
      * @return bool
      * @throws StringException
      */
-    public function compareTo(string $string): bool
+    public function compareTo(string $string): self
     {
-        return (new Manipulation($this->string))->compare_with_string($string);
+        $this->string = (new Manipulation($this->string))->compare_with_string($string);
+        return $this;
     }
 
-    public function between(string $start = '', string $end = ''): string
+    public function between(string $start = '', string $end = ''): self
     {
-        return (new Manipulation($this->string))->get_string_between($start, $end);
+        $this->string = (new Manipulation($this->string))->get_string_between($start, $end);
+        return $this;
     }
 
     /**
@@ -255,41 +293,46 @@ class Stringify
      * @return string
      * @throws StringException
      */
-    public function removeNumbers(): string
+    public function removeNumbers(): self
     {
-        return (new Expression($this->string))->remove_numbers_from_string();
+        $this->string = (new Expression($this->string))->remove_numbers_from_string();
+        return $this;
     }
 
     /**
      * Check Ups
      */
-    public function isNumeric(): bool
+    public function isNumeric(): self
     {
-        return (new Check($this->string))->string_is_numeric();
+        $this->string = (new Check($this->string))->string_is_numeric();
+        return $this;
     }
 
     /**
      * @return bool
      */
-    public function isAlphaNumeric(): bool
+    public function isAlphaNumeric(): self
     {
-        return (new Check($this->string))->string_is_alpha_numeric();
+        $this->string = (new Check($this->string))->string_is_alpha_numeric();
+        return $this;
     }
 
     /**
      * @return bool
      */
-    public function isAlpha(): bool
+    public function isAlpha(): self
     {
-        return (new Check($this->string))->string_is_alpha();
+        $this->string = (new Check($this->string))->string_is_alpha();
+        return $this;
     }
 
     /**
      * @return bool
      */
-    public function isJSON(): bool
+    public function isJSON(): self
     {
-        return (new Check($this->string))->string_is_json();
+        $this->string = (new Check($this->string))->string_is_json();
+        return $this;
     }
 
     //TODO: Remove all specials from a string

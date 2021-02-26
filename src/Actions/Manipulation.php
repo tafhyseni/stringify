@@ -69,7 +69,7 @@ class Manipulation
         return $this->response = substr($this->string, $removedChars);
     }
 
-    public function remove_last_characters(int $removedChars = 1): string
+    public function remove_last_characters(int $removedChars = -1): string
     {
         return $this->response = substr($this->string, 0, $removedChars);
     }
