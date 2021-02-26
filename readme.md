@@ -32,13 +32,13 @@ use \Tafhyseni\Stringify\Stringify;
 Cutting a string after a certain word
 
 ~~~php
-Stringify::parse('Cut this string from here...')->removeAfter('from');
+Stringify::parse('Cut this string from here...')->removeAfter('from')->get();
 ~~~
 
 Removing x-number of last characters
 
 ~~~php
-Stringify::parse('Remove3ofmylastcharacters')->removeLastChars(3);
+Stringify::parse('Remove3ofmylastcharacters')->removeLastChars(3)->get();
 ~~~
 
 Removing HTML from a string/text expect a certain tag
