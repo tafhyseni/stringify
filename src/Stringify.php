@@ -210,12 +210,12 @@ class Stringify
      * @return string
      * @throws StringException
      */
-    public function removeLastChars(int $chars = -1): self
+    public function removeLastChars(int $chars = 1): self
     {
         if(!$chars)
             throw StringException::removedChars();
 
-        $this->string = (new Manipulation($this->string))->remove_last_characters($chars);
+        $this->string = (new Manipulation($this->string))->remove_last_characters(-abs($chars));
         return $this;
     }
 
