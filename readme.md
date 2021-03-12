@@ -60,7 +60,7 @@ Please see [DOCUMENTATION](DOCUMENTATION.md) for all available methods on string
 ## Testing
 
 ~~~bash
-./vendor/bin/phpunit
+./vendor/bin/pest
 ~~~
 
 
