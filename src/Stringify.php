@@ -43,6 +43,9 @@ class Stringify
         return $this->string;
     }
 
+    /**
+     * @return array|string
+     */
     public function getArray(): array
     {
         return $this->string;
@@ -207,7 +210,7 @@ class Stringify
      * @return string
      * @throws StringException
      */
-    public function removeLastChars(int $chars = 0): self
+    public function removeLastChars(int $chars = -1): self
     {
         if(!$chars)
             throw StringException::removedChars();
