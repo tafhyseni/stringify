@@ -34,4 +34,31 @@ class Expression
     {
         return $this->response = preg_replace('/\d+/u', '', $this->string);
     }
+
+    public function convert_string_to_camel_case(): string
+    {
+        $string = preg_replace('/^[-_]+/', '', $this->string);
+
+        $string = preg_replace_callback(
+            '/[-_\s]+(.)?/u',
+            function ($match){
+                if (isset($match[1])) {
+                    return \mb_strtoupper($match[1]);
+                }
+
+                return '';
+            },
+            $string
+        );
+
+        $string = preg_replace_callback(
+            '/[\d]+(.)?/u',
+            function ($match) {
+                return \mb_strtoupper($match[0]);
+            },
+            $string
+        );
+
+        return $this->response = $string;
+    }
 }

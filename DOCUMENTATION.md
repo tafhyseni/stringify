@@ -8,6 +8,8 @@ Stringify manipulates strings, html code in a simple and elegant way!
 
 | method                                                       | params                    |
 | ------------------------------------------------------------ | ------------------------- |
+| **first**<br />*get first character/s from string*    | *int*<br />`length`        |
+| **last**<br />*get last character/s from string*    | *int*<br />`length`        |
 | **removeCharater**<br />*removes character/s from string*    | *string*<br />`my`        |
 | **removeFirstChar**<br />*removes first character*           |                           |
 | **removeFirstChars**<br />*removes first characters*         | Integer                   |
@@ -21,8 +23,10 @@ Stringify manipulates strings, html code in a simple and elegant way!
 | **startWithLowerCase**<br />*string starts with lowercase*   |                           |
 | **toUpperCase**<br />*entire string gets converted to uppercase* |                           |
 | **toLowerCase**<br />*entire string gets converted to lowercase* |                           |
+| **toCamelCase**<br />*converts underscores in string to camelCase version* |                           |
 | **chunk**<br />*chunks a string into length separated pieces* | *int*<br />               |
 | **chunkBy**<br />*chunk a string into length separated pieces, separated by..* | *string*, *length*        |
+| **append**<br />*append to string*   |   *string*                        |
 |                                                              |                           |
 
 

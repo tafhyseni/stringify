@@ -38,7 +38,7 @@ class Stringify
     /**
      * @return string
      */
-    public function get(): string
+    public function __toString()
     {
         return $this->string;
     }
@@ -49,6 +49,30 @@ class Stringify
     public function getArray(): array
     {
         return $this->string;
+    }
+
+
+    /**
+     * Returns first number of characters
+     * @param int $length
+     * @return $this
+     */
+    public function first(int $length = 1): self
+    {
+        $this->string = (new Actions\Manipulation($this->string))->get_first_number_of_characters($length);
+        return $this;
+    }
+
+    /**
+     * Return last number of characters
+     * @param int $length
+     * @return $this
+     * @throws StringException
+     */
+    public function last(int $length = 1): self
+    {
+        $this->string = (new Manipulation($this->string))->get_last_number_of_characters($length);
+        return $this;
     }
 
     /**
@@ -172,6 +196,7 @@ class Stringify
     }
 
     /**
+     * Removes first character from a string
      * @return string
      * @throws StringException
      */
@@ -182,6 +207,7 @@ class Stringify
     }
 
     /**
+     * Removes first $chars from a string
      * @param int $chars
      * @return string
      * @throws StringException
@@ -282,6 +308,13 @@ class Stringify
         return $this;
     }
 
+    /**
+     * Returns string between start and end parameters
+     * @param string $start
+     * @param string $end
+     * @return $this
+     * @throws StringException
+     */
     public function between(string $start = '', string $end = ''): self
     {
         $this->string = (new Manipulation($this->string))->get_string_between($start, $end);
@@ -289,16 +322,57 @@ class Stringify
     }
 
     /**
+     * Encodes string to base64
+     * @return $this
+     */
+    public function base64Encode(): self
+    {
+        $this->string = base64_encode($this->string);
+        return $this;
+    }
+
+    /**
+     * Decodes string from base64
+     * @return $this
+     */
+    public function base64Decode(): self
+    {
+        $this->string = base64_decode($this->string);
+        return $this;
+    }
+
+    /**
+     * Append to string
+     * @return $this
+     */
+    public function append(string $string): self
+    {
+        $this->string = $this->string . $string;
+        return new self($this->string);
+    }
+
+    /**
      * @EXPRESSIONS
      */
 
     /**
+     * Removes numbers from string
      * @return string
      * @throws StringException
      */
     public function removeNumbers(): self
     {
         $this->string = (new Expression($this->string))->remove_numbers_from_string();
+        return $this;
+    }
+
+    /**
+     * Takes your string and returns it in camelCase version.
+     * @return $this
+     */
+    public function toCamelCase(): self
+    {
+        $this->string = (new Expression($this->string))->convert_string_to_camel_case();
         return $this;
     }
 
@@ -330,6 +404,7 @@ class Stringify
     }
 
     /**
+     * Checks whether a json format is found
      * @return bool
      */
     public function isJSON(): self
@@ -338,7 +413,28 @@ class Stringify
         return $this;
     }
 
-    //TODO: Remove all specials from a string
-    // https://stackoverflow.com/questions/14114411/remove-all-special-characters-from-a-string
-    //TODO: Remove all html tags from a string
+
+    /**
+     * Encoding
+     *
+     * getEncoding
+     * htmlEncoding
+     * htmlDecoding
+     */
+
+    public function htmlEncode(): self
+    {
+        $this->string = htmlentities($this->string);
+        return $this;
+    }
+
+    /**
+     * Decodes encoded html string elements
+     * @return $this
+     */
+    public function htmlDecode(): self
+    {
+        $this->string = html_entity_decode($this->string);
+        return $this;
+    }
 }

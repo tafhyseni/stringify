@@ -30,6 +30,18 @@ class Manipulation
         $this->string = $usersString;
     }
 
+    public function get_first_number_of_characters(int $length): string
+    {
+        $this->response = substr($this->string, 0, abs($length));
+        return $this->response;
+    }
+
+    public function get_last_number_of_characters(int $length): string
+    {
+        $this->response = substr($this->string, -abs($length));
+        return $this->response;
+    }
+    
     public function remove_character_from_string(string $character = ''): string
     {
         if(!$character)
